@@ -1,8 +1,5 @@
 import NextAuth from "next-auth";
-import Credentials from "next-auth/providers/credentials";
-import bcrypt from "bcryptjs";
-import { fetchUser } from "./lib/data";
-import GitHub from "next-auth/providers/github"
+import GitHubProvider from "next-auth/providers/github"
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   theme: {
@@ -11,26 +8,16 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     buttonText: "#ffffff",
   },
   providers: [
-    GitHub({}),
-    Credentials({
-      credentials: {
-        email: {
-          label: "Email",
-        },
-        password: {
-          label: "Password",
-          type: "password",
-        },
+    GitHubProvider({
+      clientId: process.env.GITHUB_CLIENT_ID,
+      clientSecret: process.env.GITHUB_CLIENT_SECRET,
+      authorization: {
+        params: {
+          prompt: "consent",
+          access_type: "offline",
+          response_type: "code",
+        }
       },
-      //@ts-ignore
-    authorize: async (credentials: { email: string; password: string }) => {
-      const { email, password } = credentials;
-      const user = await fetchUser(email);
-      if (!user) return null; //@ts-ignore
-      const passwordsMatch = await bcrypt.compare(password, user.password);
-      if (passwordsMatch) return user;
-      return null;
-    },
     })
   ],
   callbacks: {
