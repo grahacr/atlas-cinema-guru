@@ -1,5 +1,5 @@
 
-import { signIn } from "@/auth";
+import { signIn } from "next-auth/react";;
 
 export default function Page() {
   return (
@@ -7,20 +7,14 @@ export default function Page() {
       <div className="container px-4 md:px-6">
         <div className="flex lg:flex-row flex-col gap-4 items-center">
           <div className="space-y-4">
-            <div className="flex flex-col gap-2 min-[400px]:flex-row">
-              <form
-              action={async () => {
-                "use server";
-                await signIn("default", { redirectTo: "/ui" });
-              }}>
-                <button className="inline-flex h-10 items-center justify-center rounded-md bg-primary px-8 text-sm font-medium text-primary-foreground shadow transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50">
-                  <div>Sign In</div>
+              <button 
+              onClick={() => signIn("github", { callbackUrl: "/"})}
+              className="inline-flex h-10 items-center justify-center rounded-md bg-primary px-8 text-sm font-medium text-primary-foreground shadow transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50">
+                Sign in with Github
                 </button>
-              </form>
               </div>
               </div>
         </div>
-      </div>
     </main>
   );
 }
