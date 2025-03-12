@@ -14,12 +14,11 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     }),
   ],
   callbacks: {
-    async redirect({ url, baseUrl}) {
+    async redirect({ url, baseUrl }) {
       return baseUrl + "/";
     },
-    async authorized ({ auth }) {
-      // Logged in users are authenticated, otherwise redirect to login page
+    async authorized({ auth }) {
       return !!auth;
-    },
+    }
   },
 });
