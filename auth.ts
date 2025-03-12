@@ -9,12 +9,15 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   },
   providers: [
     GitHubProvider({
-      clientId: process.env.GITHUB_CLIENT_ID,
-      clientSecret: process.env.GITHUB_CLIENT_SECRET
+      clientId: process.env.AUTH_GITHUB_ID,
+      clientSecret: process.env.AUTH_GITHUB_SECRET
     }),
   ],
   callbacks: {
-    authorized: async ({ auth }) => {
+    async redirect({ url, baseUrl}) {
+      return baseUrl + "/";
+    },
+    async authorized ({ auth }) {
       // Logged in users are authenticated, otherwise redirect to login page
       return !!auth;
     },
