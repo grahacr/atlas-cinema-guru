@@ -4,6 +4,7 @@ import SideBar from "@/components/SideBar";
 import SearchFilter from "@/components/SearchFilter";
 import GenreSearch from "@/components/GenreSearch";
 import { fetchGenres } from "@/lib/data";
+import MovieTitles from "@/components/MovieTitles";
 
 export default async function Page() {
   const session = await auth();
@@ -21,12 +22,17 @@ export default async function Page() {
         <div className="flex flex-1">
           <SideBar email={user?.email ?? null} />
 
-          <div className="flex flex-1 px-6 py-4">
-            <div className="flex-grow">
-            <SearchFilter />
+          <div className="flex flex-1 flex-col px-4 py-4">
+            <div className="flex justify-between mb-6">
+              <div className="flex-grow">
+                <SearchFilter />
+              </div>
+              <div className="flex-shrink-0 ml-auto">
+                <GenreSearch genres={genres} />
+              </div>
             </div>
-            <div className="flex-shrink-0 ml-auto">
-            <GenreSearch genres={genres} />
+            <div className="flex justify-center items-center">
+              <MovieTitles genres={genres} />
             </div>
           </div>
         </div>

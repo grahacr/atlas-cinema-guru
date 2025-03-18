@@ -33,7 +33,7 @@ export default function SideBar({ email }: SideBarProps) {
     }, [isHovered, email]);
 
     return (
-        <div className={`w-20 bg-teal-400 p-4 transition-all duration-300 ${
+        <div className={`w-32 bg-teal-400 p-4 ${
             isHovered ? 'w-64' : ''
         }`}
             onMouseEnter={() => setIsHovered(true)}
@@ -42,13 +42,13 @@ export default function SideBar({ email }: SideBarProps) {
             <div className="space-y-4">
                 <div className="flex items-center gap-3">
                     <FolderClosed fill="white"/>
-                    <p className={`text-white transition-opacity duration-300 ${
+                    <p className={`text-white transition-opacity ${
                         isHovered ? "opacity-100" : "opacity-0"
                     }`}>Home</p>
                 </div>
                 <div className="flex items-center gap-3">
                     <Star fill="white" />
-                    <p className={`text-white transition-opacity duration-300 ${
+                    <p className={`text-white transition-opacity ${
                         isHovered ? "opacity-100" : "opacity-0"
                     }`}>Favorites</p>
                 </div>
