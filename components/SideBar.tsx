@@ -60,7 +60,7 @@ export default function SideBar({ email }: SideBarProps) {
                 </div>
             </div>
             {isHovered && (
-                <div className="activity-feed mt-6 transition-opacity duration-300 opacity-100">
+                <div className="bg-teal-300 rounded-lg activity-feed mt-6 transition-opacity duration-300 opacity-100">
                     <h3 className="text-blue-950 text-xl">Latest Activities</h3>
                     <ul className="text-blue-950">
                         {activityFeed.map((activity) => (
