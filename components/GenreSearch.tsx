@@ -1,15 +1,18 @@
 "use client";
-import { useState } from "react";
+import { useFilterContext } from "./FilterContext";
 
 type GenreSearchProps = {
     genres: string[];
 }
 
 export default function GenreSearch({ genres }: GenreSearchProps) {
-    const [selectedGenre, setSelectedGenre] = useState<string | null>(null);
+    const { selectedGenres, setSelectedGenres } = useFilterContext();
     
     const handleGenreClick = (genre: string) => {
-        setSelectedGenre(genre);
+        const updatedGenres = selectedGenres.includes(genre)
+        ? selectedGenres.filter((g) => g !== genre)
+        : [...selectedGenres, genre];
+        setSelectedGenres(updatedGenres);
     };
 
     return (
@@ -20,7 +23,7 @@ export default function GenreSearch({ genres }: GenreSearchProps) {
                 <button
                     key={index}
                     className={`px-4 py-2 rounded-full border border-teal-300
-                        ${selectedGenre === genre ? "bg-teal-300 text-blue-950" : "text-blue-950 text-white"}
+                        ${selectedGenres.includes(genre) ? "bg-teal-300 text-blue-950" : "text-blue-950 text-white"}
                         text-center inline-flex items-center justify-center min-w-fit max-w-full`}
                     onClick={() => handleGenreClick(genre)}
                     >

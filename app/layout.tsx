@@ -1,6 +1,7 @@
 import "@/app/global.css";
 import { Metadata } from "next";
 import { SessionProvider } from "next-auth/react";
+import { FilterProvider } from "@/components/FilterContext";
 
 export const metadata: Metadata = {
   title: "Cinema Guru | Atlas School",
@@ -14,7 +15,11 @@ export default function RootLayout({ children }: Props) {
   return (
     <html lang="en">
       <body className={`antialiased  bg-[#00003c] text-white`}>
-      <SessionProvider>{children}</SessionProvider>
+      <SessionProvider>
+        <FilterProvider>
+        {children}
+          </FilterProvider>
+          </SessionProvider>
       </body>
     </html>
   );
