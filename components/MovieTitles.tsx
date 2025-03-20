@@ -2,6 +2,7 @@
 import { useState, useEffect } from "react";
 import { UsersTitle } from "@/lib/definitions";
 import MovieImage from "./MovieImages";
+import MovieButtons from "./movieButtons";
 import { useFilterContext } from "./FilterContext";
 
 type MovieTitleProps = {
@@ -13,6 +14,8 @@ export default function MovieTitles({ genres }: MovieTitleProps) {
     const [titles, setTitles] = useState<UsersTitle[]>([]);
     const [page, setPage] = useState(1);
     const { searchTerm, minYear, maxYear, selectedGenres } = useFilterContext();
+    const [favoriteState, setFavoriteState] = useState<{ [key: string]: boolean}>({});
+    const [watchLaterState, setWatchLaterState] = useState<{ [key: string]: boolean }>({});
 
     useEffect(() => {
         const fetchData = async () => {
@@ -53,12 +56,28 @@ export default function MovieTitles({ genres }: MovieTitleProps) {
         setPage(newPage);
     };
 
+    const handleFavoriteClick = (id: string) => {
+        setFavoriteState((prev) => ({...prev, [id]: !prev[id] }));
+    };
+
+    const handleWatchLaterClick = (id: string) => {
+        setWatchLaterState((prev) => ({ ...prev, [id]: !prev[id] }));
+    };
+
     return (
         <div>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 p-6">
                 {filteredTitles.map((title) => (
                     <div key={title.id} className="group relative rounded-xl overflow-hidden shadow-lg">
                         <MovieImage movieId={title.id} />
+                        <MovieButtons
+                            titleId={title.id}
+                            userEmail=""
+                            isFavorited={favoriteState[title.id] || false}
+                            isWatchLater={watchLaterState[title.id] || false}
+                            onFavoriteClick={handleFavoriteClick}
+                            onWatchLaterClick={handleWatchLaterClick}
+                            />
                             <div className="group-hover:flex flex-col absolute bottom-0 left-0 w-full h-1/3 bg-blue-950 bg-opacity-80 p-6 text-white hidden">
                                 <h1 className="text-2xl font-semibold">{title.title} ({title.released})</h1>
                                 <p className="text-sm mt-2">{title.synopsis}</p>
