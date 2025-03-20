@@ -1,6 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
 import { FolderClosed, Star, Clock } from "lucide-react"
+import Link from 'next/link';
 
 type Activity = {
     id: number,
@@ -40,18 +41,25 @@ export default function SideBar({ email }: SideBarProps) {
             onMouseLeave={() => setIsHovered(false)}
         >
             <div className="space-y-4">
+
+                <Link href="/">
                 <div className="flex items-center gap-3">
                     <FolderClosed fill="white"/>
                     <p className={`text-white transition-opacity ${
                         isHovered ? "opacity-100" : "opacity-0"
                     }`}>Home</p>
                 </div>
+                </Link>
+
+                <Link href="/favorites">
                 <div className="flex items-center gap-3">
                     <Star fill="white" />
                     <p className={`text-white transition-opacity ${
                         isHovered ? "opacity-100" : "opacity-0"
                     }`}>Favorites</p>
                 </div>
+                </Link>
+
                 <div className="flex items-center gap-3">
                     <Clock fill="white" />
                     <p className={`text-white transition-opacity duration-300 ${

@@ -9,6 +9,7 @@ import MovieTitles from "@/components/MovieTitles";
 export default async function Page() {
   const session = await auth();
   const user = session?.user;
+  const email = session?.user?.email!!;
 
   const genres = await fetchGenres();
 
